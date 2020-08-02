@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BlogArticles</string>
+    <string name="user_name">User name</string>
+    <string name="user_designation">User Designation</string>
+    <string name="content">Content</string>
+    <string name="title">Title</string>
+    <string name="url">URL</string>
 </resources>

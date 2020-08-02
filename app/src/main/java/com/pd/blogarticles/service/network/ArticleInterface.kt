@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface ArticleInterface {
 
-    @GET("blog?")
+    @GET("blogs?")
     fun getArticles(
         @Query("page") page: Int,
         @Query("limit") limit: Int

@@ -8,7 +8,7 @@ object ArticleApiService {
     // still keeping this as lazy but is not required
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/data/2.5/")
+            .baseUrl("https://5e99a9b1bc561b0016af3540.mockapi.io/jet2/api/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
