@@ -1,30 +1,38 @@
 package com.pd.blogarticles.service.repository
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import com.pd.blogarticles.service.models.ArticleEntity
-import com.pd.blogarticles.service.network.ArticleApiService.articleInterface
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.pd.blogarticles.service.database.BoundaryCallback
+import com.pd.blogarticles.service.database.LocalCache
+import com.pd.blogarticles.service.models.ArticleEntityItem
+import com.pd.blogarticles.service.network.ArticleApiService
 
-/**
- * Created by Prasanjit on 2020-06-31.
- */
-class ArticleListRepository {
+class ArticleListRepository(
+    private val localCache: LocalCache
+) {
 
     companion object {
         private val TAG: String = ArticleListRepository::class.java.simpleName
+        private const val DATABASE_PAGE_SIZE = 10
     }
 
-    fun getArticles(): MutableLiveData<ArticleEntity> {
+    fun search(): LiveData<PagedList<ArticleEntityItem>> {
+
+        // Get data source factory from the local cache
+        val dataSourceFactory = localCache.articles()
+        val boundaryCallback = BoundaryCallback(ArticleApiService, localCache)
+        val networkErrors = boundaryCallback.networkErrors
+
+        // Get the paged list
+
+        return LivePagedListBuilder(dataSourceFactory, DATABASE_PAGE_SIZE)
+            .setBoundaryCallback(boundaryCallback)
+            .build()
+    }
+
+    /*fun getArticles(): MutableLiveData<ArticleEntity> {
         val articleEntity = MutableLiveData<ArticleEntity>()
-
-        /*val response = articleInterface.getArticles(1, 10).execute()
-
-        if (response.isSuccessful){
-            articleEntity.value = response.body()
-        } else articleEntity.value = null*/
 
         articleInterface.getArticles(1, 10).enqueue(object : Callback<ArticleEntity> {
             override fun onResponse(call: Call<ArticleEntity>, response: Response<ArticleEntity>) {
@@ -44,5 +52,5 @@ class ArticleListRepository {
         })
 
         return articleEntity
-    }
+    }*/
 }

@@ -2,20 +2,28 @@ package com.pd.blogarticles.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import com.pd.blogarticles.service.models.ArticleEntity
+import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
+import com.pd.blogarticles.service.database.ArticleDao
+import com.pd.blogarticles.service.database.ArticleDatabase
+import com.pd.blogarticles.service.database.LocalCache
+import com.pd.blogarticles.service.models.ArticleEntityItem
 import com.pd.blogarticles.service.repository.ArticleListRepository
+import java.util.concurrent.Executors
 
-/**
- * Created by Prasanjit on 2020-06-31.
- */
 class ArticleListViewModel(application: Application) : AndroidViewModel(application) {
-    // TODO: Implement the ViewModel
 
-    private val articleListRepository: ArticleListRepository = ArticleListRepository()
+    // should be injected here
+    private val articleListRepository: ArticleListRepository
+    private val localCache: LocalCache
 
-    fun getArticle(): MutableLiveData<ArticleEntity> {
-        return articleListRepository.getArticles()
+    init {
+        val articleDao: ArticleDao = ArticleDatabase.getDatabase(application).articleDao()
+        localCache = LocalCache(articleDao, Executors.newSingleThreadExecutor())
+        articleListRepository = ArticleListRepository(localCache)
     }
 
+    fun getArticle(): LiveData<PagedList<ArticleEntityItem>> {
+        return articleListRepository.search()
+    }
 }

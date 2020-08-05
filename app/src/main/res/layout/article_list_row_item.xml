@@ -111,9 +111,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/url"
             android:textSize="13sp"
-            app:layout_constraintBottom_toTopOf="@id/guidelineHB"
+            app:layout_constraintBottom_toTopOf="@id/likes"
             app:layout_constraintEnd_toStartOf="@+id/guidelineVE"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guidelineV"
@@ -125,6 +126,32 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_end="10dp" />
+
+        <TextView
+            android:id="@+id/likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Likes"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/guidelineHB"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVE"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/guidelineV" />
+
+        <TextView
+            android:id="@+id/comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comments"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/guidelineHB"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVE"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@id/guidelineV" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
